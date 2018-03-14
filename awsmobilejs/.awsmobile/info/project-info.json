@@ -1,0 +1,23 @@
+{
+	"ProjectName": "question",
+	"ProjectPath": "C:\\Users\\excdrb\\WebstormProjects\\question",
+	"SourceDir": "C:\\Users\\excdrb\\WebstormProjects\\question\\src",
+	"DistributionDir": "C:\\Users\\excdrb\\WebstormProjects\\question\\build",
+	"BuildCommand": "npm run build",
+	"StartCommand": "npm.cmd run-script start",
+	"InitializationTime": "2018-02-27-16-31-20",
+	"LastConfigurationTime": "2018-02-27-16-34-09",
+	"LastNPMInstallTime": "",
+	"FrontendLastBuildTime": "",
+	"LastPublishTime": "",
+	"BackendFormat": "yml",
+	"BackendLastSyncTime": "",
+	"BackendLastBuildTime": "",
+	"BackendLastPushTime": "",
+	"BackendLastPushSuccessful": false,
+	"BackendProjectID": "",
+	"BackendProjectName": "",
+	"BackendProjectConsoleUrl": "",
+	"BackendProjectCreationTime": "",
+	"BackendProjectLastUpdatedTime": ""
+}

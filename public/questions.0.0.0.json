@@ -1,0 +1,777 @@
+{"data": {
+    "version": "0.0.0",
+    "questions": [
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 1
+            },
+            "Description": "Are you a",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "radiobutton",
+            "id": 101,
+            "Options": [
+                "Passenger",
+                "Crew member"
+            ]
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 2
+            },
+            "Description": "Are you an Australian citizen?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "boolean",
+            "id": 201,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 2
+            },
+            "Description": "Do you usually live in Australia?",
+            "HelpText": "Resident, Temporarty entrant or migrating permanently to Australia",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "radiobutton",
+            "id": 202,
+            "Options": [
+                "Yes",
+                "No",
+                "I am migrating"
+            ],
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 2
+            },
+            "Description": "What passport are you travelling on?",
+            "HelpText": "Passport country of issue",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "string",
+            "id": 203,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Family/surname",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "string",
+            "id": 301
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Given names",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "string",
+            "id": 302
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Gender",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "dropdownlist",
+            "id": 303,
+            "Options": [
+                "Male",
+                "Female",
+                "Other"
+            ],
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Date of birth",
+            "HelpText": "DD/MM/YYYY",
+            "Mandatory": true,
+            "Order": 4,
+            "QuestionType": "string",
+            "id": 304,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Passport number",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 5,
+            "QuestionType": "string",
+            "id": 305
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 3
+            },
+            "Description": "Country of issue",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 6,
+            "QuestionType": "string",
+            "id": 306,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 4
+            },
+            "Description": "Were you in Africa, South/Central America or the Caribbean in the last 6 days?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "boolean",
+            "id": 401
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 4
+            },
+            "Description": "In which ountry did you spend the most time overseas?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "string",
+            "id": 402,
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "equals",
+                "Value": "Yes"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 4
+            },
+            "Description": "What was your main reason for being overseas",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "dropdownlist",
+            "id": 403,
+            "Options": [
+                "Convention/conference",
+                "Visiting friends or relatives",
+                "Education",
+                "Holiday",
+                "Business",
+                "Employment",
+                "Exhibition",
+                "Other"
+            ],
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "equals",
+                "Value": "Yes"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "In which country did you board this flight or ship?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "string",
+            "id": 501,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What was the flight number or name of ship?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "string",
+            "id": 502,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What was the flight number or name of ship you arrived on?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "string",
+            "id": 503,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is the flight number or name of ship you intend to depart on?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 4,
+            "QuestionType": "string",
+            "id": 504,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What port are you leaving from?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 5,
+            "QuestionType": "string",
+            "id": 505,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is your intended address in Australia?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 6,
+            "QuestionType": "string",
+            "id": 506,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "State",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 7,
+            "QuestionType": "dropdownlist",
+            "id": 507,
+            "Options": [
+                "ACT",
+                "NSW",
+                "NT",
+                "QLD",
+                "SA",
+                "TAS",
+                "VIC",
+                "WA"
+            ],
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Crew member"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is your intended length of stay in Australia?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 8,
+            "QuestionType": "string",
+            "id": 508,
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "equals",
+                "Value": "No"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "Do you intend to live in Australia for the next 12 months?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 9,
+            "QuestionType": "boolean",
+            "id": 509,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is your main reason for travel?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 10,
+            "QuestionType": "dropdownlist",
+            "id": 510,
+            "Options": [
+                "Convention/conference",
+                "Visiting friends or relatives",
+                "Education",
+                "Holiday",
+                "Business",
+                "Employment",
+                "Exhibition",
+                "Other"
+            ],
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "equals",
+                "Value": "No"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is the main place you will stay at in Australia?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 11,
+            "QuestionType": "string",
+            "id": 511,
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "equals",
+                "Value": "No"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What state do you live in?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 12,
+            "QuestionType": "dropdownlist",
+            "id": 512,
+            "Options": [
+                "ACT",
+                "NSW",
+                "NT",
+                "QLD",
+                "SA",
+                "TAS",
+                "VIC",
+                "WA"
+            ],
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "notequals",
+                "Value": "No"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is your street address?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 13,
+            "QuestionType": "string",
+            "id": 513,
+            "Condition": {
+                "QuestionId": 202,
+                "Operation": "notequals",
+                "Value": "No"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "",
+                "Ordering": 5
+            },
+            "Description": "What is your usual occupation?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 14,
+            "QuestionType": "string",
+            "id": 514,
+            "Condition": {
+                "QuestionId": 101,
+                "Operation": "equals",
+                "Value": "Passenger"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Tuberculosis",
+                "Ordering": 6
+            },
+            "Description": "Do you have tuberculosis?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "boolean",
+            "id": 601,
+            "Condition": {
+                "QuestionId": 201,
+                "Operation": "equals",
+                "Value": "true"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Criminal Convictions",
+                "Ordering": 6
+            },
+            "Description": "Do you have any criminal conviction/s?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "boolean",
+            "id": 602,
+            "Condition": {
+                "QuestionId": 201,
+                "Operation": "equals",
+                "Value": "true"
+            }
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Customs prohibited items",
+                "Ordering": 6
+            },
+            "Description": "Goods that may be prohibited or subject to restrictions, such as medicines, steroids, illegal pornography, firearms, weapons or illicit drugs?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "boolean",
+            "id": 603
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Customs revenue items",
+                "Ordering": 6
+            },
+            "Description": "More than 2250mL of alcoholic beverages or 50 cigarettes or 50g of tobacco products?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 4,
+            "QuestionType": "boolean",
+            "id": 604
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Customs revenue items",
+                "Ordering": 6
+            },
+            "Description": "Goods obtained overseas or purchased duty and/or tax free in Australia with a combined total price of more than AUD$900, including gifts?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 5,
+            "QuestionType": "boolean",
+            "id": 605
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Customs revenue items",
+                "Ordering": 6
+            },
+            "Description": "Goods/samples for business/commercial use?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 6,
+            "QuestionType": "boolean",
+            "id": 606
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "AusTrac currency",
+                "Ordering": 6
+            },
+            "Description": "AUD$10,000 or more in Australian or foreign currency equivalent? Note: If a customs or police officer asks, you must report travellers cheques, cheques, money orders or other bearer negotiable instruments of any amount.",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 7,
+            "QuestionType": "boolean",
+            "id": 607
+        },
+        {
+            "Category": {
+                "CategoryType": "agriculture",
+                "Heading": "Agriculture quarantine items",
+                "Ordering": 6
+            },
+            "Description": "Meat, poultry, fish, seafood, eggs, dairy, fruit, vegetables?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 8,
+            "QuestionType": "boolean",
+            "id": 608
+        },
+        {
+            "Category": {
+                "CategoryType": "agriculture",
+                "Heading": "Agriculture quarantine items",
+                "Ordering": 6
+            },
+            "Description": "Grains, seeds, bulbs, straw, nuts, plants, parts of plants, traditional medicines or herbs, wooden articles?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 9,
+            "QuestionType": "boolean",
+            "id": 609
+        },
+        {
+            "Category": {
+                "CategoryType": "agriculture",
+                "Heading": "Agriculture quarantine items",
+                "Ordering": 6
+            },
+            "Description": "Animals, parts of animals, animal products including equipment, pet food, eggs, biologicals, specimens, birds, fish, insects, shells, bee products?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 10,
+            "QuestionType": "boolean",
+            "id": 610
+        },
+        {
+            "Category": {
+                "CategoryType": "agriculture",
+                "Heading": "Agriculture quarantine items",
+                "Ordering": 6
+            },
+            "Description": "Soil, items with soil attached or used in freshwater areas e.g. sports/recreational equipment, shoes?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 11,
+            "QuestionType": "boolean",
+            "id": 611
+        },
+        {
+            "Category": {
+                "CategoryType": "agriculture",
+                "Heading": "Agriculture quarantine items",
+                "Ordering": 6
+            },
+            "Description": "Have you been in contact with farms, farm animals, wilderness areas or freshwater streams/lakes etc in the past 30 days?",
+            "HelpText": "temphelptext",
+            "Mandatory": true,
+            "Order": 12,
+            "QuestionType": "boolean",
+            "id": 612
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "In case of an emergency, how can we contact you?",
+                "Ordering": 7
+            },
+            "Description": "Phone",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 1,
+            "QuestionType": "string",
+            "id": 701
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "In case of an emergency, how can we contact you?",
+                "Ordering": 7
+            },
+            "Description": "E-mail",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 2,
+            "QuestionType": "string",
+            "id": 702
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "In case of an emergency, how can we contact you?",
+                "Ordering": 7
+            },
+            "Description": "Address",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 3,
+            "QuestionType": "string",
+            "id": 703
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Family or Friend",
+                "Ordering": 7
+            },
+            "Description": "Name",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 4,
+            "QuestionType": "string",
+            "id": 704
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Family or Friend",
+                "Ordering": 7
+            },
+            "Description": "Phone",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 5,
+            "QuestionType": "string",
+            "id": 705
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Family or Friend",
+                "Ordering": 7
+            },
+            "Description": "E-mail",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 6,
+            "QuestionType": "string",
+            "id": 706
+        },
+        {
+            "Category": {
+                "CategoryType": "customs",
+                "Heading": "Family or Friend",
+                "Ordering": 7
+            },
+            "Description": "Address",
+            "HelpText": "",
+            "Mandatory": true,
+            "Order": 7,
+            "QuestionType": "string",
+            "id": 707
+        }
+    ]
+}}
