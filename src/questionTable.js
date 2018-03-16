@@ -107,9 +107,9 @@ export class DataTableColResizeDemo extends Component {
     render() {
         const selected = this.state.selectedQ1;
         var footer = <div>
-            <Button label="Save" icon="fa-save" />
-            <Button label="Cancel" icon="fa-close" />
-            <Button label="Delete" icon="fa-delete" />
+            <Button label="Save" icon="fa-save" onClick={(e)=>{this.onHide(e)}}/>
+            <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onHide(e)}} />
+            <Button label="Delete" icon="fa-delete" onClick={(e)=>{this.onHide(e)}} />
         </div>;
 
         return (
@@ -174,6 +174,15 @@ export class DataTableColResizeDemo extends Component {
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.shortTitle} onChange={(e) => this.updateProperty('shortTitle', e.target.value)}/></div>
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.order } onChange={(e) => this.updateProperty('order', e.target.value)}/></div>
                                     <div class="ui-g-4"><Checkbox checked = {this.state.selectedQ1.clearRequired } onChange={(e) => this.updateProperty('clearRequired', e.target.value)}/></div>
+                                </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-4">Validations</div>
+                                    <div class="ui-g-4">Options</div>
+
+                                </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.validations} /></div>
+                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.options } /></div>
                                 </div>
                             </div>
                          </div>
