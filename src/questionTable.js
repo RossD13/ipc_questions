@@ -7,10 +7,12 @@ import {Growl} from 'primereact/components/growl/Growl';
 import {Dialog} from 'primereact/components/dialog/Dialog';
 import {Panel} from 'primereact/components/panel/Panel';
 import {Dropdown} from 'primereact/components/dropdown/Dropdown';
+import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 
 import EditForm from './editForm';
 var download = require("downloadjs");
 var types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
+    {label:"booleanbuttons", value:"booleanbuttons"},
     {label:"name", value:"name"}, {label:"date",value:"date"}];
 
 export class DataTableColResizeDemo extends Component {
@@ -104,6 +106,12 @@ export class DataTableColResizeDemo extends Component {
      */
     render() {
         const selected = this.state.selectedQ1;
+        var footer = <div>
+            <Button label="Save" icon="fa-save" />
+            <Button label="Cancel" icon="fa-close" />
+            <Button label="Delete" icon="fa-delete" />
+        </div>;
+
         return (
 
             <div>
@@ -113,7 +121,7 @@ export class DataTableColResizeDemo extends Component {
                 Version <InputText value={this.state.version} onChange={(e) => this.setState({version: e.target.value})}/>
                 </div>
 
-                <DataTable value={this.state.questions} resizableColumns={true} scrollable={true} scrollHeight="400px"
+                <DataTable value={this.state.questions} resizableColumns={true} scrollable={true} scrollHeight="300px"
                            footer={this.displaySelection(this.state.selectedQ1)}
                            editable={true}
                  selectionMode="single" selection={this.state.selectedQ1} onSelectionChange={(e) => this.selectChange(e)}>
@@ -131,7 +139,8 @@ export class DataTableColResizeDemo extends Component {
                     <div class="ui-g-1"><Button label="Cancel"  /></div>
                 </div>
                 <div>
-                    <Dialog header="Edit Question" visible={this.state.visible} width="650px" height="500px" modal={true} onHide={(e) => this.onHide(e)}>
+                    <Dialog header="Edit Question" visible={this.state.visible} width="650px"  modal={true} onHide={(e) => this.onHide(e)}
+                            footer = {footer}>
                         <div>
                             <div className="content-section implementation">
                                     <div class="ui-g">
@@ -156,10 +165,18 @@ export class DataTableColResizeDemo extends Component {
                                     </div>
 
                                 </div>
-
+                                <div class="ui-g">
+                                    <div class="ui-g-4">Short title</div>
+                                    <div class="ui-g-4">Order</div>
+                                    <div class="ui-g-4">Clear required</div>
+                                </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.shortTitle} onChange={(e) => this.updateProperty('shortTitle', e.target.value)}/></div>
+                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.order } onChange={(e) => this.updateProperty('order', e.target.value)}/></div>
+                                    <div class="ui-g-4"><Checkbox checked = {this.state.selectedQ1.clearRequired } onChange={(e) => this.updateProperty('clearRequired', e.target.value)}/></div>
+                                </div>
                             </div>
-
-                        </div>
+                         </div>
                     </Dialog>
                 </div>
 
