@@ -23,11 +23,17 @@ class App extends Component {
     render() {
     return (
         <div>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} alt="logo" size="100"/>
-          <h1 className="App-title">IPC Questions Maintenance Screen</h1>
-        </header>
+      <div className="App"><header className="App-header">
+          <div class="ui-g">
+              <div class="ui-g-4"><img src={logo} alt="logo" size="50%"/></div>
+              <div class="ui-g-4">
+
+                        <h1 >
+
+                     IPC Questions Maintenance Screen</h1>
+
+              </div>
+          </div></header>
 
 
       </div>

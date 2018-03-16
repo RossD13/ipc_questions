@@ -4,8 +4,14 @@ import {Column} from 'primereact/components/column/Column';
 import {Button} from 'primereact/components/button/Button';
 import {InputText} from 'primereact/components/inputtext/InputText';
 import {Growl} from 'primereact/components/growl/Growl';
-var download = require("downloadjs");
+import {Dialog} from 'primereact/components/dialog/Dialog';
+import {Panel} from 'primereact/components/panel/Panel';
+import {Dropdown} from 'primereact/components/dropdown/Dropdown';
 
+import EditForm from './editForm';
+var download = require("downloadjs");
+var types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
+    {label:"name", value:"name"}, {label:"date",value:"date"}];
 
 export class DataTableColResizeDemo extends Component {
 
@@ -23,6 +29,7 @@ export class DataTableColResizeDemo extends Component {
      */
     displaySelection(data) {
         if(!data || data.length === 0) {
+            this.setState();
             return <div style={{textAlign: 'left'}}>No Selection</div>;
         }
         else {
@@ -72,11 +79,31 @@ export class DataTableColResizeDemo extends Component {
         this.growl.show({ severity: 'success', summary: 'Success Message', detail: 'Your changes have been saved and are now LIVE all over the world' });
     }
 
+    selectChange(e) {
+        this.setState({selectedQ1: e.data});
+        this.setState({visible: true});
+    }
+
+    onRowEdit(e) {
+        console.log(e);
+    }
+    onHide(event) {
+        this.setState({visible: false});
+    }
+
+    updateProperty(property, value) {
+        let selected = this.state.selectedQ1;
+        selected[property] = value;
+        this.setState({selectedQ1: selected});
+    }
+
+
     /**
      * called by the react framework, builds the component which edits the questions.
      * @returns {*}
      */
     render() {
+        const selected = this.state.selectedQ1;
         return (
 
             <div>
@@ -89,7 +116,7 @@ export class DataTableColResizeDemo extends Component {
                 <DataTable value={this.state.questions} resizableColumns={true} scrollable={true} scrollHeight="400px"
                            footer={this.displaySelection(this.state.selectedQ1)}
                            editable={true}
-                 selectionMode="single" selection={this.state.selectedQ1} onSelectionChange={(e) => this.setState({selectedQ1: e.data})}>
+                 selectionMode="single" selection={this.state.selectedQ1} onSelectionChange={(e) => this.selectChange(e)}>
                     <Column field="id" header="Id" style={{width:'10%'}} sortable={false}/>
                     <Column field="pageId" header="Page ID" style={{width:'10%'}} sortable={false}/>
                     <Column field="title" header="Question text" style={{width:'70%'}} sortable={false} editor={(p) =>this.descEditor(p)}/>
@@ -102,6 +129,38 @@ export class DataTableColResizeDemo extends Component {
                     <div class="ui-g-3"><Button label={"Upload a Version"} name={'uploadButton'} /></div>
                     <div class="ui-g-2"/>
                     <div class="ui-g-1"><Button label="Cancel"  /></div>
+                </div>
+                <div>
+                    <Dialog header="Edit Question" visible={this.state.visible} width="650px" height="500px" modal={true} onHide={(e) => this.onHide(e)}>
+                        <div>
+                            <div className="content-section implementation">
+                                    <div class="ui-g">
+                                        <div class="ui-g-4">ID</div>
+                                        <div class="ui-g-4">Page Id</div>
+                                        <div class="ui-g-4">Type</div>
+                                    </div>
+                                    <div class="ui-g">
+                                        <div class="ui-g-4"><InputText value = {this.state.selectedQ1.id} onChange={(e) => this.updateProperty('id', e.target.value)}/></div>
+                                        <div class="ui-g-4"><InputText value = {this.state.selectedQ1.pageId } onChange={(e) => this.updateProperty('pageId', e.target.value)}/></div>
+                                        <div class="ui-g-4"><Dropdown optionLabel="label"  options={types } style={{width:'150px'}} placeholder="Select a type"
+                                        value={ {label:this.state.selectedQ1.questionType, value:this.state.selectedQ1.questionType}}
+                                                                      onChange={(e) => this.updateProperty('questionType', e.value.value)}/></div>
+                                    </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-12">Question text</div>
+                                </div>
+                                <div class="ui-g">
+                                    <div class="ui-g-112"><InputText value = {this.state.selectedQ1.title}
+                                                                    onChange={(e) => this.updateProperty('title', e.target.value)}
+                                                                    size = {60}/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </Dialog>
                 </div>
 
             </div>
@@ -139,6 +198,7 @@ export class DataTableColResizeDemo extends Component {
 
 constructor() {
     super();
+    this.selectChange = this.selectChange.bind(this);
     /*var myRequest = new Request('questions.0.0.0.json', {mode:'no-cors' });
 
     var jRequest = new Request('https://dt2s7tpmzl3lr.cloudfront.net/v1/questions/', {mode:'no-cors' });
