@@ -8,18 +8,17 @@ import {Dialog} from 'primereact/components/dialog/Dialog';
 import {Panel} from 'primereact/components/panel/Panel';
 import {Dropdown} from 'primereact/components/dropdown/Dropdown';
 import {Checkbox} from 'primereact/components/checkbox/Checkbox';
+import {OrderList} from 'primereact/components/orderlist/OrderList';
 
-import EditForm from './editForm';
+
 var download = require("downloadjs");
 var types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
-    {label:"booleanbuttons", value:"booleanbuttons"},
+    {label:"booleanbuttons", value:"booleanbuttons"},{label:"countryselect", value:"countryselect"},
     {label:"name", value:"name"}, {label:"date",value:"date"}];
 
 export class DataTableColResizeDemo extends Component {
 
     componentDidMount() {
-        //data => this.setState({cars1: data});
-        //this.setState({"questions":this.state.questions});
 
     }
 
@@ -82,6 +81,8 @@ export class DataTableColResizeDemo extends Component {
     }
 
     selectChange(e) {
+        let selected = this.state.selectedQ1;
+        this.setState({selectedQ1: selected});
         this.setState({selectedQ1: e.data});
         this.setState({visible: true});
     }
@@ -92,14 +93,53 @@ export class DataTableColResizeDemo extends Component {
     onHide(event) {
         this.setState({visible: false});
     }
+    onOptionsHide(event) {
+        this.setState({optionsvisible: false});
+    }
+    onNewOptionHide(event) {
+        this.setState({newoptionvisible: false});
+    }
 
     updateProperty(property, value) {
+        //console.log("this is the event value", value);
         let selected = this.state.selectedQ1;
         selected[property] = value;
         this.setState({selectedQ1: selected});
+
+        //console.log(this.state.selectedQ1.options);
     }
 
+    //*********************** OPTIONS *********************//
+    editOptions() {
+        if (this.state.selectedQ1.questionType === 'radiobutton' || this.state.selectedQ1.questionType === 'dropdownlist') {
+            this.setState({"optionsvisible": true})
+        }
+    }
+    addNewOption() {
+        this.setState({newoptionvisible: true})
+        this.setState({newOption:""});
+    }
 
+    saveNewOption(e) {
+        console.log("new option", this.state.newOption);
+        let newOptions = this.state.selectedQ1.options;
+        newOptions.push(this.state.newOption);
+        console.log('updated options', newOptions);
+        this.updateProperty('options', newOptions);
+        this.setState({'newOption':''});
+        this.onNewOptionHide();
+    }
+
+    deleteOption(e) {
+        console.log(this.orderList);
+        let newOptions = this.state.selectedQ1.options;
+        let deleteIndex = newOptions.findIndex((d)=> d == this.orderList.state.selection);
+        console.log(deleteIndex,newOptions[deleteIndex] );
+        newOptions.splice(deleteIndex,1);
+        console.log('updated options', newOptions);
+        this.updateProperty('options', newOptions);
+        //
+    }
     /**
      * called by the react framework, builds the component which edits the questions.
      * @returns {*}
@@ -109,7 +149,19 @@ export class DataTableColResizeDemo extends Component {
         var footer = <div>
             <Button label="Save" icon="fa-save" onClick={(e)=>{this.onHide(e)}}/>
             <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onHide(e)}} />
-            <Button label="Delete" icon="fa-delete" onClick={(e)=>{this.onHide(e)}} />
+            <Button label="Delete" icon="fa-remove" onClick={(e)=>{this.onHide(e)}} />
+        </div>;
+
+        var optionsfooter = <div>
+            <Button label="Save" icon="fa-save" onClick={(e)=>{this.onOptionsHide(e)}}/>
+            <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onOptionsHide(e)}} />
+            <Button label="Delete" icon="fa-minus" onClick={(e)=>{this.deleteOption(e)}} />
+            <Button label="Add" icon="fa-plus" onClick={(e)=>this.addNewOption()} />
+        </div>;
+        var newOptionfooter = <div>
+            <Button label="Save" icon="fa-save" onClick={(e)=>{this.saveNewOption()}}/>
+            <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onNewOptionHide(e)}} />
+
         </div>;
 
         return (
@@ -173,7 +225,7 @@ export class DataTableColResizeDemo extends Component {
                                 <div class="ui-g">
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.shortTitle} onChange={(e) => this.updateProperty('shortTitle', e.target.value)}/></div>
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.order } onChange={(e) => this.updateProperty('order', e.target.value)}/></div>
-                                    <div class="ui-g-4"><Checkbox checked = {this.state.selectedQ1.clearRequired } onChange={(e) => this.updateProperty('clearRequired', e.target.value)}/></div>
+                                    <div class="ui-g-4"><Checkbox checked = {this.state.selectedQ1.clearRequired } onChange={(e) => this.updateProperty('clearRequired',e.checked )}/></div>
                                 </div>
                                 <div class="ui-g">
                                     <div class="ui-g-4">Validations</div>
@@ -182,10 +234,45 @@ export class DataTableColResizeDemo extends Component {
                                 </div>
                                 <div class="ui-g">
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.validations} /></div>
-                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.options } /></div>
+                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.options } onFocus = {()=> this.editOptions()}/></div>
                                 </div>
                             </div>
                          </div>
+                    </Dialog>
+                </div>
+                <div>
+                    <Dialog header="Edit Question Options" visible={this.state.optionsvisible} width="450px"  modal={true} onHide={(e) => this.onOptionsHide(e)}
+                            footer = {optionsfooter}>
+                        <div>
+                            <div className="content-section implementation">
+                                <div class="ui-g">
+                                    <div class="ui-g-4">Options</div>
+
+                                </div>
+                                <div class="ui-g">
+                                    <OrderList value={this.state.selectedQ1.options} //scrollHeight="300px"
+                                               ref={(OrderList) => { this.orderList = OrderList; }}
+                                         onChange={(e) => this.updateProperty("options", e.value)} >
+                                    </OrderList>
+                                </div>
+                            </div>
+                        </div>
+                    </Dialog>
+                </div>
+                <div>
+                    <Dialog header="New Option" visible={this.state.newoptionvisible} width="450px"  modal={true} onHide={(e) => this.onNewOptionHide(e)}
+                            footer = {newOptionfooter}>
+                        <div>
+                            <div className="content-section implementation">
+                                <div class="ui-g">
+                                    <div class="ui-g-4">New Option</div>
+                                    <InputText value = {this.state.newOption} onChange={(e) =>this.setState({newOption:e.target.value})}/>
+                                </div>
+                                <div class="ui-g">
+
+                                </div>
+                            </div>
+                        </div>
                     </Dialog>
                 </div>
 
@@ -340,6 +427,7 @@ constructor() {
             "order": 1,
             "clearRequired": false,
             "questionType": "boolean",
+            options: [],
             "conditions": [
                 {
                     "questionId": 101,
