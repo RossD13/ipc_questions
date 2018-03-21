@@ -3,16 +3,16 @@ import {DataTable} from 'primereact/components/datatable/DataTable';
 import {Column} from 'primereact/components/column/Column';
 import {Button} from 'primereact/components/button/Button';
 import {InputText} from 'primereact/components/inputtext/InputText';
+import {InputTextarea} from 'primereact/components/inputtextarea/InputTextarea';
 import {Growl} from 'primereact/components/growl/Growl';
 import {Dialog} from 'primereact/components/dialog/Dialog';
-import {Panel} from 'primereact/components/panel/Panel';
 import {Dropdown} from 'primereact/components/dropdown/Dropdown';
 import {Checkbox} from 'primereact/components/checkbox/Checkbox';
 import {OrderList} from 'primereact/components/orderlist/OrderList';
 
 
 var download = require("downloadjs");
-var types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
+const types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
     {label:"booleanbuttons", value:"booleanbuttons"},{label:"countryselect", value:"countryselect"},
     {label:"name", value:"name"}, {label:"date",value:"date"}];
 
@@ -34,10 +34,7 @@ export class DataTableColResizeDemo extends Component {
             return <div style={{textAlign: 'left'}}>No Selection</div>;
         }
         else {
-            if(data instanceof Array)
-                return <ul style={{textAlign: 'left', margin: 0}}>{data.map((car,i) => <li key={car.vin}>{car.vin + ' - ' + car.year + ' - ' + car.brand + ' - ' + car.color}</li>)}</ul>;
-            else
-                return <div style={{textAlign: 'left'}}>Selected Question: {data.id+' '+data.title}</div>
+            return <div style={{textAlign: 'left'}}>Selected Question: {data.id+' '+data.title}</div>
         }
     }
 
@@ -99,6 +96,9 @@ export class DataTableColResizeDemo extends Component {
     onNewOptionHide(event) {
         this.setState({newoptionvisible: false});
     }
+    onNewQuestionsHide() {
+        this.setState({newquestionvisible: false});
+    }
 
     updateProperty(property, value) {
         //console.log("this is the event value", value);
@@ -140,6 +140,51 @@ export class DataTableColResizeDemo extends Component {
         this.updateProperty('options', newOptions);
         //
     }
+
+    //////////////////////// CONDITIONS AND VALIDATIONS ///////////////////////////
+
+    showConditions() {
+        // create a printable string from the conditions to display on the screen
+        let conditions = this.state.selectedQ1.conditions;
+        if (typeof(conditions) === 'undefined' || conditions == null
+            || conditions.length ==0) {
+            return '';
+        } else {
+            return conditions[0].questionId+' '+conditions[0].operation+' '+conditions[0].value;
+        }
+    }
+
+    showValidations() {
+        // create a printable string from the validations to show on the screen
+        let validations = this.state.selectedQ1.validations;
+        if (typeof(validations) === 'undefined' || validations == null) {
+            return '';
+        } else {
+            let retVal = '';
+            for (let c in validations) {
+                retVal = retVal + validations[c].type +' ';
+            }
+            return retVal;
+        }
+    }
+
+    //////////////////////// UPLOAD QUESTIONS  //////////////////////////
+    saveNewQuestions() {
+        // take the json uploaded from the user and see if we can use it to replace
+        // the current set of questions
+        let newQJson = JSON.parse(this.state.newQuestions);
+        if (typeof(newQJson.version) !== 'undefined' &&
+            typeof(newQJson.pages)  !== 'undefined' &&
+            typeof(newQJson.sections)  !== 'undefined' &&
+            typeof(newQJson.questions)  !== 'undefined') {
+            this.setState({"version": newQJson.version});
+            this.setState({"pages": newQJson.pages});
+            this.setState({"sections": newQJson.sections});
+            this.setState({"questions": newQJson.questions});
+        }
+
+    }
+
     /**
      * called by the react framework, builds the component which edits the questions.
      * @returns {*}
@@ -163,6 +208,11 @@ export class DataTableColResizeDemo extends Component {
             <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onNewOptionHide(e)}} />
 
         </div>;
+        var newQuestionfooter = <div>
+            <Button label="Save" icon="fa-save" onClick={(e)=>{this.saveNewQuestions()}}/>
+            <Button label="Cancel" icon="fa-close" onClick={(e)=>{this.onNewQuestionsHide(e)}} />
+
+        </div>;
 
         return (
 
@@ -174,7 +224,6 @@ export class DataTableColResizeDemo extends Component {
                 </div>
 
                 <DataTable value={this.state.questions} resizableColumns={true} scrollable={true} scrollHeight="300px"
-                           footer={this.displaySelection(this.state.selectedQ1)}
                            editable={true}
                  selectionMode="single" selection={this.state.selectedQ1} onSelectionChange={(e) => this.selectChange(e)}>
                     <Column field="id" header="Id" style={{width:'10%'}} sortable={false}/>
@@ -186,7 +235,7 @@ export class DataTableColResizeDemo extends Component {
                 <div class="ui-g">
                     <div class="ui-g-3"><Button label="Save and Publish" onClick={() =>this.saveAndPublish()} /></div>
                     <div class="ui-g-3"><Button label="Save a Copy"  onClick={()=>this.saveACopy()} /></div>
-                    <div class="ui-g-3"><Button label={"Upload a Version"} name={'uploadButton'} /></div>
+                    <div class="ui-g-3"><Button label={"Upload a Version"} name={'uploadButton'} onClick={()=>this.setState({newquestionvisible: true})}/></div>
                     <div class="ui-g-2"/>
                     <div class="ui-g-1"><Button label="Cancel"  /></div>
                 </div>
@@ -229,11 +278,13 @@ export class DataTableColResizeDemo extends Component {
                                 </div>
                                 <div class="ui-g">
                                     <div class="ui-g-4">Validations</div>
+                                    <div className="ui-g-4">Conditions</div>
                                     <div class="ui-g-4">Options</div>
 
                                 </div>
                                 <div class="ui-g">
-                                    <div class="ui-g-4"><InputText value = {this.state.selectedQ1.validations} /></div>
+                                    <div class="ui-g-4"><InputText value = {this.showValidations()} /></div>
+                                    <div class="ui-g-4"><InputText value = {this.showConditions()} /></div>
                                     <div class="ui-g-4"><InputText value = {this.state.selectedQ1.options } onFocus = {()=> this.editOptions()}/></div>
                                 </div>
                             </div>
@@ -268,8 +319,19 @@ export class DataTableColResizeDemo extends Component {
                                     <div class="ui-g-4">New Option</div>
                                     <InputText value = {this.state.newOption} onChange={(e) =>this.setState({newOption:e.target.value})}/>
                                 </div>
-                                <div class="ui-g">
+                            </div>
+                        </div>
+                    </Dialog>
+                </div>
 
+                <div>
+                    <Dialog header="Upload a Question set" visible={this.state.newquestionvisible} width="450px"  modal={true} onHide={(e) => this.onNewQuestionsHide(e)}
+                            footer = {newQuestionfooter}>
+                        <div>
+                            <div className="content-section implementation">
+                                <div class="ui-g">
+                                    <div class="ui-g-4">Paste json content here</div>
+                                    <InputTextarea rows={10} cols={130} value = {this.state.newQuestions} onChange={(e) =>this.setState({newQuestions:e.target.value})}/>
                                 </div>
                             </div>
                         </div>
@@ -286,8 +348,12 @@ export class DataTableColResizeDemo extends Component {
      */
     saveACopy() {
         // clear some things not needed to be saved
-        var quest = this.state;
-        delete quest.selectedQ1;
+        var quest = {};
+        quest.version = this.state.version;
+        quest.categories = this.state.categories;
+        quest.pages = this.state.pages;
+        quest.sections = this.state.sections;
+        quest.questions = this.state.questions;
 
         quest.questions.forEach(function(q) {delete q._$visited;});
         quest.questions.sort(function(a, b){return a.id - b.id});
@@ -298,13 +364,6 @@ export class DataTableColResizeDemo extends Component {
 
     }
 
-    onBasicUpload(event) {
-        this.growl.show({ severity: 'success', summary: 'Success Message', detail: 'Your file is uploaded' });
-    }
-
-    todo() {
-        this.upload.processFile(files => files)
-    }
 
 
 
