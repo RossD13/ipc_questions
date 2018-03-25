@@ -16,7 +16,7 @@ var questions = require("./questions.json");
 var download = require("downloadjs");
 const types = [{label: "text", value: "text"}, {label: "checkbox", value: "checkbox"}, {label:"radiobutton", value:"radiobutton"}, {label:"boolean", value:"boolean"},
     {label:"booleanbuttons", value:"booleanbuttons"},{label:"countryselect", value:"countryselect"},{label:"dropdownlist", value:"dropdownlist"},
-    {label:"durationpicker", value:"durationpicker"},{label:"name", value:"name"}, {label:"date",value:"date"}];
+    {label:"durationpicker", value:"durationpicker"},{label:"name", value:"name"}, {label:"date",value:"date"}, {label:"phone", value:"phone"}];
 
 export class DataTableColResizeDemo extends Component {
 
