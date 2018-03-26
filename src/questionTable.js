@@ -146,10 +146,13 @@ export class DataTableColResizeDemo extends Component {
     deleteOption(e) {
         console.log(this.orderList);
         let newOptions = this.state.selectedQ1.options;
-        let deleteIndex = newOptions.findIndex((d) => d == this.orderList.state.selection);
-        console.log(deleteIndex, newOptions[deleteIndex]);
-        newOptions.splice(deleteIndex, 1);
-        console.log('updated options', newOptions);
+        let deleteIndex = newOptions.findIndex((d) => d === this.orderList.state.selection[0]);
+        //console.log('selected option:', this.orderList.state.selection, deleteIndex);
+        if (deleteIndex !== -1) {
+            console.log(deleteIndex, newOptions[deleteIndex]);
+            newOptions.splice(deleteIndex, 1);
+        }
+        //console.log('updated options', newOptions);
         this.updateProperty('options', newOptions);
         //
     }
@@ -160,7 +163,7 @@ export class DataTableColResizeDemo extends Component {
         // create a printable string from the conditions to display on the screen
         let conditions = this.state.selectedQ1.conditions;
         if (typeof(conditions) === 'undefined' || conditions == null
-            || conditions.length == 0) {
+            || conditions.length === 0) {
             return '';
         } else {
             return conditions[0].questionId + ' ' + conditions[0].operation + ' ' + conditions[0].value;
@@ -187,7 +190,6 @@ export class DataTableColResizeDemo extends Component {
         if (typeof(validations) === 'undefined' || validations == null) {
             return false;
         } else {
-            let retVal = '';
             for (let c in validations) {
                 if (validations[c].type === 'mandatory') {
                     return true;
@@ -203,7 +205,6 @@ export class DataTableColResizeDemo extends Component {
         if (typeof(validations) === 'undefined' || validations == null) {
             return '';
         } else {
-            let retVal = '';
             for (let c in validations) {
                 if (validations[c].type === 'mandatory') {
                     // skip
@@ -211,7 +212,6 @@ export class DataTableColResizeDemo extends Component {
                     return validations[c].type;
                 }
             }
-
             return '';
         }
     }
@@ -375,7 +375,7 @@ export class DataTableColResizeDemo extends Component {
 
                                 </div>
                                 <div class="ui-g">
-                                    <div class="ui-g-4">Mandatory <Checkbox checked={this.showMandatory()}/>
+                                    <div class="ui-g-4">Mandatory <Checkbox checked={this.showMandatory()} readonly={true}/>
                                         <div>Type {this.showValidType()} </div></div>
                                     <div class="ui-g-4"><InputText value={this.showConditions()} width={10}/></div>
                                     <div class="ui-g-4"><InputText value={this.state.selectedQ1.options}
