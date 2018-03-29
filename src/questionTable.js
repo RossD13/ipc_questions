@@ -479,6 +479,14 @@ export class DataTableColResizeDemo extends Component {
             sections: questions.sections,
             questions: questions.questions
         };
+        // set an empty array for questions with no options
+        this.state.questions.forEach(function (q) {
+            if (typeof (q.options) === 'undefined' ||
+                q.options === null) {
+                q.options = [];
+            }
+            delete q._$visited;
+        });
     }
 }
 export default DataTableColResizeDemo;
