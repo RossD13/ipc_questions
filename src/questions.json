@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "categories": [
     {
       "id": 100,
@@ -149,7 +149,34 @@
       "shortTitle": "Date of birth",
       "order": 2,
       "clearRequired": false,
-      "questionType": "date",
+      "questionType": "birthdate",
+      "validations": [
+        {
+          "type": "mandatory",
+          "message": "Please answer this question"
+        }
+      ]
+    },
+    {
+      "id": 308,
+      "pageId": 101,
+      "title": "What is your sex?",
+      "shortTitle": "Sex",
+      "order": 3,
+      "clearRequired": false,
+      "questionType": "dropdownlist",
+      "options": [
+        "Male",
+        "Female",
+        "Unspecified"
+      ],
+      "conditions": [
+        {
+          "questionId": 101,
+          "operation": "equals",
+          "value": "Crew member"
+        }
+      ],
       "validations": [
         {
           "type": "mandatory",
@@ -162,7 +189,7 @@
       "pageId": 101,
       "title": "What is your passport number?",
       "shortTitle": "Passport number",
-      "order": 3,
+      "order": 4,
       "clearRequired": false,
       "questionType": "text",
       "validations": [
@@ -181,7 +208,7 @@
       "pageId": 101,
       "title": "What passport are you travelling on?",
       "shortTitle": "Passport nationality",
-      "order": 4,
+      "order": 5,
       "clearRequired": false,
       "questionType": "countryselect",
       "conditions": [
@@ -203,36 +230,9 @@
       "pageId": 101,
       "title": "Where was your passport issued?",
       "shortTitle": "Passport country of issue",
-      "order": 4,
-      "clearRequired": false,
-      "questionType": "countryselect",
-      "conditions": [
-        {
-          "questionId": 101,
-          "operation": "equals",
-          "value": "Crew member"
-        }
-      ],
-      "validations": [
-        {
-          "type": "mandatory",
-          "message": "Please answer this question"
-        }
-      ]
-    },
-    {
-      "id": 308,
-      "pageId": 101,
-      "title": "What is your sex?",
-      "shortTitle": "Sex",
       "order": 5,
       "clearRequired": false,
-      "questionType": "radiobutton",
-      "options": [
-        "Male",
-        "Female",
-        "Unspecified"
-      ],
+      "questionType": "countryselect",
       "conditions": [
         {
           "questionId": 101,
@@ -634,11 +634,6 @@
       ],
       "conditions": [
         {
-          "questionId": 306,
-          "operation": "notequals",
-          "value": "AUSTRALIA"
-        },
-        {
           "questionId": 101,
           "operation": "equals",
           "value": "Passenger"
@@ -945,7 +940,7 @@
       "pageId": 204,
       "title": "What is your usual occupation?",
       "shortTitle": "Occupation",
-      "Order": 5,
+      "order": 5,
       "clearRequired": false,
       "questionType": "text",
       "conditions": [
@@ -1058,7 +1053,7 @@
       "shortTitle": "Date of departure",
       "order": 1,
       "clearRequired": false,
-      "questionType": "date",
+      "questionType": "flightdate",
       "conditions": [
         {
           "questionId": 101,
